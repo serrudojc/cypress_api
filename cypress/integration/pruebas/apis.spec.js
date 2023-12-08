@@ -3,10 +3,6 @@ import data from "../../fixtures/data.json";
 
 describe("Prueba de APIs",() => {
 
-    beforeEach(() => {
-        cy.visit("/");
-    })
-    
     it("Test people", () => {        
         cy.request("people/2/");
     })
@@ -122,7 +118,7 @@ describe("Prueba de APIs",() => {
 describe("falla api", () => {
 
     Cypress.on('uncaught:exception', (err, runnable) => {return false})
-    it.only("404", () => {
+    it("404", () => {
         //Request the /films/7/ and check the response having a 404 code.
         cy.request({
             method:"GET",
