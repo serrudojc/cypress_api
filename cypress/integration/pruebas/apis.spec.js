@@ -86,7 +86,7 @@ describe("Prueba de APIs",() => {
         })
     })
 
-    it.only("Grab url", () => {
+    it("Grab url", () => {
         //On the same response from the planet, grab the url element on the response, 
         //and request it. Validate the response being exactly the same from the previous one.
         let url;
@@ -116,5 +116,23 @@ describe("Prueba de APIs",() => {
                 })
             })
         })
+    })
+})
+
+describe("falla api", () => {
+
+    Cypress.on('uncaught:exception', (err, runnable) => {return false})
+    it.only("404", () => {
+        //Request the /films/7/ and check the response having a 404 code.
+        cy.request({
+            method:"GET",
+            url:"/films/7/",
+            failOnStatusCode: false
+        }).
+        then(respuesta => {
+            expect(respuesta.status).to.eq(404);
+            expect(respuesta.body).to.have.property('detail', "Not found");
+        })
+        //its('status').should('equal', 404);
     })
 })
